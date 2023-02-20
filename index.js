@@ -13,7 +13,7 @@ dotenv.config();
 mongoose.set("strictQuery", false);
 mongoose
   .connect(
-    "mongodb+srv://happy:1234@cluster0.2zfc2cj.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://happy:1234@cluster0.2zfc2cj.mongodb.net/myblog?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log(`successfully connected`);
@@ -72,7 +72,7 @@ const options = {
     ],
     servers: [
       {
-        url: "http://localhost:4000",
+        url: "https://blogapi3.onrender.com",
       },
     ],
   },
