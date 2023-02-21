@@ -185,27 +185,23 @@ router.post("/login", async (req, res) => {
       error: "Email and password  field are required",
     });
   }
-  const users = await Users.findOne({ email: req.body.email });
-  if (!users)
-    return res.status(404).json({
-      status: "fail",
-      error: "Incorrect email or password",
-    });
-  const validPass = await bcrypt.compare(req.body.password, users.password);
-  if (!validPass) {
-    return res.status(400).json({
-      status: "fail",
-      error: "Incorrect email or password",
+  const user = await Users.findOne({ email }).select("+password");
+  console.log(user);
+  if (!user || !(await user.correctPassword(password, user.password))) {
+    return res.status(401).json({
+      status: "failed",
+      message: "incorrect email or password",
     });
   }
 
   //create and assign a token
-  const token = jwt.sign({ id: users._id }, process.env.TOKEN_SECRET, {
+  const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
   return res.status(200).json({
     token,
     message: "Login success",
+    user,
   });
 });
 

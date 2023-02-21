@@ -7,11 +7,10 @@ dotenv.config();
 async function Authorization(req, res, next) {
   let token;
   try {
-
-    if(!req.headers.authorization) {
-        return res.status(401).json({
-            message:"Login first to create a blog",
-        })
+    if (!req.headers.authorization) {
+      return res.status(401).json({
+        message: "Login first to create a blog",
+      });
     }
     if (
       req.headers.authorization !== "undefined" &&
