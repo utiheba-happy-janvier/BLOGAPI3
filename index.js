@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
 const dotenv = require("dotenv");
+const cors =require("cors");
 // const swaggerjsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 dotenv.config();
@@ -37,16 +38,8 @@ mongoose
 //   optionSuccessStatus: 200,
 // };
 
-// app.use(cors(corsOptions));
+ app.use(cors());
 const swaggerJsdoc = require("swagger-jsdoc");
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 const options = {
   definition: {
     openapi: "3.0.0",
